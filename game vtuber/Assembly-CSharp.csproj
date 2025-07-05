@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\code\PlayerScript.cs" />
+    <Compile Include="Assets\code\ResolutionController.cs" />
     <Compile Include="Assets\code\MainMenuManager.cs" />
     <Compile Include="Assets\code\PauseMenuManager.cs" />
     <Compile Include="Assets\code\GameSessionData.cs" />
