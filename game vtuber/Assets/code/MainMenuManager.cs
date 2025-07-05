@@ -6,49 +6,46 @@ using UnityEngine;
 // Cara Penggunaan di Unity Editor:
 // 1. Buat GameObject kosong dan beri nama "MenuManager".
 // 2. Pasang (attach) script ini ke GameObject "MenuManager".
-// 3. Buat beberapa Panel UI (GameObject -> UI -> Panel) untuk setiap menu:
-//    - MainMenuPanel
-//    - CharacterSelectionPanel
-//    - StageSelectionPanel
-//    - ShopPanel
-//    - etc.
-// 4. Masukkan semua GameObject Panel tersebut ke dalam field yang sesuai pada Inspector.
-// 5. Untuk setiap tombol, pada komponen Button di bagian OnClick():
-//    a. Tekan tanda '+'.
-//    b. Drag GameObject "MenuManager" ke dalam field object.
-//    c. Dari dropdown fungsi, pilih "MenuNavigationManager" -> fungsi yang sesuai (misal: ShowCharacterSelection).
+// 3. Buat beberapa Panel UI untuk setiap menu (MainMenu, CharacterSelection, etc.).
+// 4. Buat SATU Panel UI tambahan untuk "Coming Soon" dan nonaktifkan secara default.
+// 5. Masukkan semua GameObject Panel tersebut ke dalam field yang sesuai pada Inspector.
 
 public class MainMenuManager : MonoBehaviour
 {
     [Header("Menu Panels")]
-    [Tooltip("Masukkan semua panel menu yang akan diatur di sini.")]
+    [Tooltip("Masukkan semua panel menu utama di sini.")]
     public GameObject mainMenuPanel;
     public GameObject characterSelectionPanel;
-    public GameObject stageSelectionPanel; // Panel baru untuk pemilihan stage
+    public GameObject stageSelectionPanel;
     public GameObject shopPanel;
     public GameObject collectionPanel;
     public GameObject settingsPanel;
 
+    [Header("Overlay Panels")]
+    [Tooltip("Panel ini akan muncul di atas panel lain.")]
+    public GameObject comingSoonPanel; // Variabel yang hilang ditambahkan kembali
+
     void Start()
     {
         // Saat game dimulai, pastikan hanya menu utama yang aktif.
-        // Semua panel lain akan dinonaktifkan.
         ShowMainMenu();
+        // Pastikan panel overlay tidak aktif saat mulai.
+        if (comingSoonPanel != null) comingSoonPanel.SetActive(false);
     }
 
-    // --- FUNGSI UNTUK MENONAKTIFKAN SEMUA PANEL ---
+    // --- FUNGSI UNTUK MENONAKTIFKAN SEMUA PANEL UTAMA---
     private void HideAllPanels()
     {
         // Nonaktifkan semua panel yang terhubung untuk memastikan tidak ada yang tumpang tindih.
         if (mainMenuPanel != null) mainMenuPanel.SetActive(false);
         if (characterSelectionPanel != null) characterSelectionPanel.SetActive(false);
-        if (stageSelectionPanel != null) stageSelectionPanel.SetActive(false); // Tambahkan panel stage ke fungsi ini
+        if (stageSelectionPanel != null) stageSelectionPanel.SetActive(false);
         if (shopPanel != null) shopPanel.SetActive(false);
         if (collectionPanel != null) collectionPanel.SetActive(false);
         if (settingsPanel != null) settingsPanel.SetActive(false);
     }
 
-    // --- FUNGSI-FUNGSI YANG AKAN DIPANGGIL OLEH TOMBOL ---
+    // --- FUNGSI-FUNGSI NAVIGASI PANEL UTAMA ---
 
     public void ShowMainMenu()
     {
@@ -61,6 +58,10 @@ public class MainMenuManager : MonoBehaviour
     {
         HideAllPanels();
         if (characterSelectionPanel != null) characterSelectionPanel.SetActive(true);
+        if (comingSoonPanel != null)
+        {
+            comingSoonPanel.SetActive(false);
+        }
     }
 
     // Fungsi ini akan dipanggil setelah memilih karakter
@@ -89,23 +90,45 @@ public class MainMenuManager : MonoBehaviour
     {
         HideAllPanels();
         if (settingsPanel != null) settingsPanel.SetActive(true);
+        if (comingSoonPanel != null)
+        {
+            comingSoonPanel.SetActive(false);
+        }
     }
+
+    // --- FUNGSI UNTUK PANEL OVERLAY ---
+
+    // Fungsi ini akan dipanggil oleh tombol yang fiturnya belum siap
+    public void ShowComingSoon()
+    {
+        // Jangan panggil HideAllPanels() agar panel ini muncul di atas panel yang sedang aktif.
+        if (comingSoonPanel != null)
+        {
+            comingSoonPanel.SetActive(true);
+        }
+    }
+
+    // Fungsi ini akan dipanggil oleh tombol "Close" di dalam panel Coming Soon
+    public void HideComingSoon()
+    {
+        if (comingSoonPanel != null)
+        {
+            comingSoonPanel.SetActive(false);
+        }
+    }
+
+    // --- FUNGSI-FUNGSI LAIN ---
 
     // Fungsi ini akan dipanggil saat tombol "Exit" ditekan
     public void KeluarGame()
     {
-        // Pesan ini akan muncul di console Unity untuk pengetesan
         Debug.Log("Tombol Exit ditekan!");
-
-        // Jika game sedang berjalan di dalam Unity Editor...
 #if UNITY_EDITOR
-        // ...maka hentikan Play Mode.
         UnityEditor.EditorApplication.isPlaying = false;
-
-        // Jika game berjalan di versi build (bukan di editor)...
 #else
-        // ...maka tutup aplikasi.
         Application.Quit();
 #endif
     }
+
+
 }
