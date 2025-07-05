@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 433f550fbded27449b5fcdbded740144, type: 3}
   m_Name: Data4
   m_EditorClassIdentifier: 
-  characterID: 0
-  characterName: 
+  characterID: 3
+  characterName: Delta
   characterSprite: {fileID: 0}
   maxHealth: 0
   attackPower: 0
