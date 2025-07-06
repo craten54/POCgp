@@ -284,7 +284,14 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      bonkeffect-Sheet_0: 1566678447944509571
+      bonkeffect-Sheet_1: 1424094719004609353
+      bonkeffect-Sheet_2: -1332592539968689259
+      bonkeffect-Sheet_3: -4724123477505939346
+      bonkeffect-Sheet_4: 803229712701080899
+      bonkeffect-Sheet_5: -793114184722101937
+      bonkeffect-Sheet_6: -4314771046450645357
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

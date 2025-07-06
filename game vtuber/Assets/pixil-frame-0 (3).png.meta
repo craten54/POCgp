@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 3c1a8e9ac64f242409f75f43c785c4fa
+guid: cc4fe2a7ace2a6040811d44e8131dbb4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5827426972233067911
-    second: hearteffect-Sheet_0
-  - first:
-      213: 8898633177019974535
-    second: hearteffect-Sheet_1
-  - first:
-      213: 7681452461061877544
-    second: hearteffect-Sheet_2
-  - first:
-      213: -8751433778391575895
-    second: hearteffect-Sheet_3
+      213: -5513050994037168576
+    second: pixil-frame-0 (3)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: hearteffect-Sheet_0
+      name: pixil-frame-0 (3)_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 18
-        width: 36
-        height: 37
+        x: 179
+        y: 59
+        width: 962
+        height: 1562
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,74 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 78d6b7ac4fd2fd050800000000000000
-      internalID: 5827426972233067911
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: hearteffect-Sheet_1
-      rect:
-        serializedVersion: 2
-        x: 78
-        y: 18
-        width: 36
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 78308ce3abb4e7b70800000000000000
-      internalID: 8898633177019974535
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: hearteffect-Sheet_2
-      rect:
-        serializedVersion: 2
-        x: 142
-        y: 18
-        width: 36
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 82fa4a4b0500a9a60800000000000000
-      internalID: 7681452461061877544
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: hearteffect-Sheet_3
-      rect:
-        serializedVersion: 2
-        x: 206
-        y: 18
-        width: 36
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9a29d9b7859ac8680800000000000000
-      internalID: -8751433778391575895
+      spriteID: 046eccf8455bd73b0800000000000000
+      internalID: -5513050994037168576
       vertices: []
       indices: 
       edges: []
@@ -209,11 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      hearteffect-Sheet_0: 5827426972233067911
-      hearteffect-Sheet_1: 8898633177019974535
-      hearteffect-Sheet_2: 7681452461061877544
-      hearteffect-Sheet_3: -8751433778391575895
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

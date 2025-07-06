@@ -1,9 +1,22 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
 
 public class EnemyMechanic : MonoBehaviour
 {
     public static int currentEnemy = 0;
+    [SerializeField] private EnemyMechanic enemyMech;
+    [SerializeField] private GameObject emote1;
+    [SerializeField] private GameObject emote2;
+    [SerializeField] private GameObject emote3;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public static EnemyMechanic Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
 
@@ -15,6 +28,17 @@ public class EnemyMechanic : MonoBehaviour
 
     }
 
+    public static IEnumerator WaitCoroutine(GameObject emote, GameObject character)
+    {
+        Animator animate =character.GetComponent<Animator>();
+        animate.Play("Suprise");
+        character.SetActive(true);
+        emote.SetActive(true);
+        yield return new WaitForSeconds(2.0f);
+        character.SetActive(false);
+        emote.SetActive(false);
+    }
+
     public static void attackEnemy()
     {
         var player = playerStatus.Instance;
@@ -22,6 +46,8 @@ public class EnemyMechanic : MonoBehaviour
 
         // Pastikan target valid sebelum melakukan apa pun
         if (targetEnemy == null || targetEnemy.currentHP <= 0) return;
+
+        GameObject char1 = GameObject.Find("Char1Skill");
 
         // Logika untuk Basic Attack (ID "1")
         if (SkillAttack.currentAction == "1")
@@ -35,6 +61,8 @@ public class EnemyMechanic : MonoBehaviour
                 targetEnemy.currentHP -= damageDealt;
 
                 Debug.Log("Player menyerang " + targetEnemy.characterName + " sebesar " + damageDealt + " damage!");
+                Instance.StartCoroutine(WaitCoroutine(Instance.emote3, char1));
+
 
                 // Clamp HP to 0
                 if (targetEnemy.currentHP < 0)
@@ -91,7 +119,7 @@ public class EnemyMechanic : MonoBehaviour
                 int damagePerHit = player.playerStats.attack;
 
                 Debug.Log($"Player menggunakan Skill 2: menyerang semua musuh sebesar {damagePerHit} damage.");
-
+                Instance.StartCoroutine(WaitCoroutine(Instance.emote2, char1));
                 for (int i = 0; i < player.enemySlots.Length; i++)
                 {
                     var enemy = player.enemySlots[i];
@@ -148,7 +176,7 @@ public class EnemyMechanic : MonoBehaviour
                 player.energyPoint -= energyCost;
 
                 int healAmount = (int)(player.playerStats.maxHP * 0.25f);
-                player.playerStats.currentHP += healAmount;
+                Instance.StartCoroutine(WaitCoroutine(Instance.emote1, char1));
 
                 // Clamp HP agar tidak melebihi max
                 if (player.playerStats.currentHP > player.playerStats.maxHP)
@@ -167,6 +195,6 @@ public class EnemyMechanic : MonoBehaviour
                 Debug.LogWarning("Energi tidak cukup untuk Skill 3!");
             }
         }
- // Anda bisa menambahkan logika 'else if' di sini untuk skill lainnya
+        // Anda bisa menambahkan logika 'else if' di sini untuk skill lainnya
     }
 }

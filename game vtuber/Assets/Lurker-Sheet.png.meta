@@ -259,7 +259,13 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Lurker-Sheet_0: 9166966735140805065
+      Lurker-Sheet_1: -7188895266203684482
+      Lurker-Sheet_2: 4121672916900415587
+      Lurker-Sheet_3: 4177423229735840804
+      Lurker-Sheet_4: 1966533886090569190
+      Lurker-Sheet_5: -5007243572968248370
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
