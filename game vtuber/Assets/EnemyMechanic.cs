@@ -30,11 +30,17 @@ public class EnemyMechanic : MonoBehaviour
 
     public static IEnumerator WaitCoroutine(GameObject emote, GameObject character)
     {
-        Animator animate =character.GetComponent<Animator>();
-        animate.Play("Suprise");
+        Animator animate = character.GetComponent<Animator>();
+        
         character.SetActive(true);
         emote.SetActive(true);
-        yield return new WaitForSeconds(2.0f);
+
+        // Reset animasi agar bisa diputar ulang
+        animate.Play("Idle_char1"); // pastikan kamu punya animasi idle atau apapun
+        animate.Play("Suprise", -1, 0f); // restart dari awal
+
+        yield return new WaitForSeconds(1.0f);
+
         character.SetActive(false);
         emote.SetActive(false);
     }
@@ -62,7 +68,6 @@ public class EnemyMechanic : MonoBehaviour
 
                 Debug.Log("Player menyerang " + targetEnemy.characterName + " sebesar " + damageDealt + " damage!");
                 Instance.StartCoroutine(WaitCoroutine(Instance.emote3, char1));
-
 
                 // Clamp HP to 0
                 if (targetEnemy.currentHP < 0)
@@ -120,6 +125,7 @@ public class EnemyMechanic : MonoBehaviour
 
                 Debug.Log($"Player menggunakan Skill 2: menyerang semua musuh sebesar {damagePerHit} damage.");
                 Instance.StartCoroutine(WaitCoroutine(Instance.emote2, char1));
+
                 for (int i = 0; i < player.enemySlots.Length; i++)
                 {
                     var enemy = player.enemySlots[i];
@@ -196,5 +202,6 @@ public class EnemyMechanic : MonoBehaviour
             }
         }
         // Anda bisa menambahkan logika 'else if' di sini untuk skill lainnya
+        char1.SetActive(true);
     }
 }
