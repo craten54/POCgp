@@ -275,6 +275,8 @@ MonoBehaviour:
   typeSkill: {fileID: 1342283696}
   descSkill: {fileID: 756099782}
   epSkill: {fileID: 1271397059}
+  skillAttack: {fileID: 590007442}
+  skillUsage: 0
 --- !u!1 &37388965
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,6 +761,8 @@ MonoBehaviour:
   typeSkill: {fileID: 1342283696}
   descSkill: {fileID: 756099782}
   epSkill: {fileID: 1271397059}
+  skillAttack: {fileID: 590007442}
+  skillUsage: 0
 --- !u!1 &117851787
 GameObject:
   m_ObjectHideFlags: 0
@@ -1662,6 +1666,8 @@ MonoBehaviour:
   typeSkill: {fileID: 1342283696}
   descSkill: {fileID: 756099782}
   epSkill: {fileID: 1271397059}
+  skillAttack: {fileID: 590007442}
+  skillUsage: 0
 --- !u!1 &272092810
 GameObject:
   m_ObjectHideFlags: 0
@@ -2870,6 +2876,7 @@ MonoBehaviour:
   skillBar: {fileID: 1503629686}
   bgObject: {fileID: 364589248}
   cancelText: {fileID: 2129952749}
+  playerStatus: {fileID: 1027143470}
 --- !u!1 &607727347
 GameObject:
   m_ObjectHideFlags: 0
@@ -3254,6 +3261,8 @@ MonoBehaviour:
   typeSkill: {fileID: 1342283696}
   descSkill: {fileID: 756099782}
   epSkill: {fileID: 1271397059}
+  skillAttack: {fileID: 590007442}
+  skillUsage: 0
 --- !u!1 &675254095
 GameObject:
   m_ObjectHideFlags: 0
@@ -4015,6 +4024,8 @@ MonoBehaviour:
   typeSkill: {fileID: 1342283696}
   descSkill: {fileID: 756099782}
   epSkill: {fileID: 1271397059}
+  skillAttack: {fileID: 590007442}
+  skillUsage: 0
 --- !u!1 &818512069
 GameObject:
   m_ObjectHideFlags: 0
@@ -4549,6 +4560,8 @@ MonoBehaviour:
   typeSkill: {fileID: 1342283696}
   descSkill: {fileID: 756099782}
   epSkill: {fileID: 1271397059}
+  skillAttack: {fileID: 590007442}
+  skillUsage: 0
 --- !u!1 &895471387
 GameObject:
   m_ObjectHideFlags: 0
@@ -5045,7 +5058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 377397294246ce34b9d93401b172b7f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSprite: {fileID: 916212568}
+  playerSprite: {fileID: 0}
   playerName: Player
   playerHP: 100
   maxplayerHP: 100
@@ -5369,6 +5382,8 @@ MonoBehaviour:
   typeSkill: {fileID: 1342283696}
   descSkill: {fileID: 756099782}
   epSkill: {fileID: 1271397059}
+  skillAttack: {fileID: 590007442}
+  skillUsage: 0
 --- !u!1 &1184572279
 GameObject:
   m_ObjectHideFlags: 0
@@ -7110,6 +7125,8 @@ MonoBehaviour:
   typeSkill: {fileID: 1342283696}
   descSkill: {fileID: 756099782}
   epSkill: {fileID: 1271397059}
+  skillAttack: {fileID: 590007442}
+  skillUsage: 0
 --- !u!1 &1736649469
 GameObject:
   m_ObjectHideFlags: 0

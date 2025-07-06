@@ -3,11 +3,13 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.TextCore.Text;
+using Unity.Mathematics;
 
 public class playerStatus : MonoBehaviour
 {
-    private CharacterData selectedCharacter;
 
+    public SpriteRenderer playerSprite;
+    public string playerName = "Player";
     public float playerHP = 100f;
     public float maxplayerHP = 100f;
     public int energyPoint = 0;
@@ -33,14 +35,14 @@ public class playerStatus : MonoBehaviour
         SetCharacterFromSelection();
 
         executeRound();
-        updateHP();
-        updateEnergyPoint();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        updateHP();
+        updateEnergyPoint();
     }
 
     public void SetCharacterFromSelection()
@@ -53,7 +55,17 @@ public class playerStatus : MonoBehaviour
         }
 
         // Assign stat
+        if (!playerSprite)
+        {
+            Debug.LogError("❌ playerSprite is not assigned!");
+        }
+        else
+        {
+            playerSprite.sprite = selected.CharacterSprite;
+        }
+        playerName = selected.CharacterName;
         maxplayerHP = selected.MaxHealth;
+        playerHP = maxplayerHP;
         attackPower = selected.AttackPower;
         playerDEF = selected.Defense;
         Debug.Log($"✅ Data loaded: {selected.CharacterName} - HP:{maxplayerHP}, ATK:{attackPower}, DEF:{playerDEF}");

@@ -9,15 +9,33 @@ public class SkillAttack : MonoBehaviour
     [SerializeField] private GameObject skillBar;
     [SerializeField] private GameObject bgObject;
     [SerializeField] private Button cancelText;
-    
+
+    public playerStatus playerStatus;
+    private SkillPressEffect skillPress;
+
+    public void SetSelectedSkill(SkillPressEffect selected)
+    {
+        skillPress = selected;
+        Debug.Log("✅ Skill selected: " + selected); // opsional debug
+    }
+
     public void activateSkill()
     {
+
+        if (skillPress.skillUsage > playerStatus.energyPoint)
+        {
+            Debug.Log("❌ Not enough energy points to use this skill!");
+            return;
+        }
         actionBar.SetActive(false);
         skillBar.SetActive(false);
         bgObject.SetActive(false);
         cancelText.gameObject.SetActive(true);
 
         playerStatus.goingAttack = true;
+
+        playerStatus.energyPoint -= skillPress.skillUsage;
+        playerStatus.updateEnergyPoint();
     }
 
     public void cancelSkill()
