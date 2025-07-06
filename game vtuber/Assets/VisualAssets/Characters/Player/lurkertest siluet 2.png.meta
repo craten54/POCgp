@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      lurkertest siluet 2_0: 3058542642647518697
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
