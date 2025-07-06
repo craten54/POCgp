@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.TextCore.Text;
 using Unity.Mathematics;
+using Random = UnityEngine.Random;
 
 // --- CLASS BARU UNTUK MENYIMPAN STAT DENGAN RAPI ---
 [System.Serializable]
@@ -84,12 +85,10 @@ public class playerStatus : MonoBehaviour
 
             Debug.LogWarning("GameSessionData tidak ditemukan atau mode belum dipilih. Default ke Stage Mode.");
 
-� � � � � � // Jika Anda ingin ini berfungsi, pastikan GameObject dengan GameSessionData ada di scene
+            // Jika Anda ingin ini berfungsi, pastikan GameObject dengan GameSessionData ada di scene
 
-� � � � � � // atau buat instance sementara untuk testing.
-
-
-� � � � }
+            // atau buat instance sementara untuk testing.
+        }
 
         pendengarSetiaCount = 2;
         playerStats.maxHP += 10 * pendengarSetiaCount; // +20 max HP
@@ -149,11 +148,13 @@ public class playerStatus : MonoBehaviour
             playerSprite.sprite = selected.CharacterSprite;
         }
         playerName = selected.CharacterName;
-        maxplayerHP = selected.MaxHealth;
-        playerHP = maxplayerHP;
-        attackPower = selected.AttackPower;
-        playerDEF = selected.Defense;
-        Debug.Log($"✅ Data loaded: {selected.CharacterName} - HP:{maxplayerHP}, ATK:{attackPower}, DEF:{playerDEF}");
+        playerStats = new CharacterStats(
+            selected.CharacterName,
+            selected.MaxHealth,
+            selected.AttackPower,
+            selected.Defense / 100f * 10f // Convert defense to damage reduction percent
+        );
+        Debug.Log($"✅ Data loaded: {playerStats.characterName} - HP:{playerStats.maxHP}, ATK:{playerStats.attack}, DMG Reduction:{playerStats.damageReductionPercent}%");
         UpdateEnemyVisuals();
         if (Input.GetKeyDown(KeyCode.B))
         {
