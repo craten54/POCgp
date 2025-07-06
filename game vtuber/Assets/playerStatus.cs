@@ -2,9 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.TextCore.Text;
 
 public class playerStatus : MonoBehaviour
 {
+    private CharacterData selectedCharacter;
+
     public float playerHP = 100f;
     public float maxplayerHP = 100f;
     public int energyPoint = 0;
@@ -27,6 +30,8 @@ public class playerStatus : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        SetCharacterFromSelection();
+
         executeRound();
         updateHP();
         updateEnergyPoint();
@@ -36,6 +41,22 @@ public class playerStatus : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void SetCharacterFromSelection()
+    {
+        var selected = CharacterSelectionManager.Instance?.SelectedCharacter;
+        if (selected == null)
+        {
+            Debug.LogError("❌ No character selected!");
+            return;
+        }
+
+        // Assign stat
+        maxplayerHP = selected.MaxHealth;
+        attackPower = selected.AttackPower;
+        playerDEF = selected.Defense;
+        Debug.Log($"✅ Data loaded: {selected.CharacterName} - HP:{maxplayerHP}, ATK:{attackPower}, DEF:{playerDEF}");
     }
 
     public void executeRound()

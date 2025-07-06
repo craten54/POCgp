@@ -21,10 +21,24 @@ public class CharacterSelectionManager : MonoBehaviour
     public void SetCharacter(CharacterData character)
     {
         SelectedCharacter = character;
+        Debug.Log("🟢 SetCharacter called: " + character.CharacterName);
+        Debug.Log("📦 GameObject name holding the manager: " + gameObject.name);
     }
 
     public void ResetSelection()
     {
         SelectedCharacter = null;
+    }
+
+    private void Start()
+    {
+        if (SelectedCharacter != null)
+        {
+            Debug.Log("✅ CharacterSelectionManager Started - SelectedCharacter: " + SelectedCharacter.CharacterName);
+        }
+        else
+        {
+            Debug.Log("🟡 CharacterSelectionManager Started - No character selected yet.");
+        }
     }
 }

@@ -48,19 +48,25 @@
     <Analyzer Include="D:\Unity\Hub\Editor\6000.0.46f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\code\PlayerScript.cs" />
+    <Compile Include="Assets\HoverText.cs" />
     <Compile Include="Assets\code\ResolutionController.cs" />
-    <Compile Include="Assets\code\MainMenuManager.cs" />
-    <Compile Include="Assets\code\PauseMenuManager.cs" />
     <Compile Include="Assets\code\PlayerSwap.cs" />
+    <Compile Include="Assets\EnemyMechanic.cs" />
     <Compile Include="Assets\code\MainMenuManager.cs" />
     <Compile Include="Assets\code\CharacterSelectButton.cs" />
     <Compile Include="Assets\code\CharacterResetBackButton.cs" />
+    <Compile Include="Assets\useAttack.cs" />
     <Compile Include="Assets\code\CharacterSelectionUI.cs" />
+    <Compile Include="Assets\PressText.cs" />
+    <Compile Include="Assets\playerStatus.cs" />
     <Compile Include="Assets\code\CharacterData.cs" />
+    <Compile Include="Assets\code\PauseMenuManager.cs" />
     <Compile Include="Assets\code\CharacterSelectionManager.cs" />
     <Compile Include="Assets\code\GameSessionData.cs" />
+    <Compile Include="Assets\code\EnemyScript.cs" />
     <Compile Include="Assets\code\HealthBarScript.cs" />
+    <Compile Include="Assets\SkillAttack.cs" />
+    <Compile Include="Assets\SkillPress.cs" />
     <Compile Include="Assets\code\ModeSelectionManager.cs" />
   </ItemGroup>
   <ItemGroup>

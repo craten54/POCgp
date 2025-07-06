@@ -28,14 +28,14 @@ public class ModeSelectionManager : MonoBehaviour
         UpdateVisuals();
     }
 
-    void SelectStageMode()
+    public void SelectStageMode()
     {
         currentSelection = GameSessionData.GameMode.Stage;
         Debug.Log("Memilih Stage Mode");
         UpdateVisuals();
     }
 
-    void SelectEnduranceMode()
+    public void SelectEnduranceMode()
     {
         currentSelection = GameSessionData.GameMode.Endurance;
         Debug.Log("Memilih Endurance Mode");
@@ -54,7 +54,7 @@ public class ModeSelectionManager : MonoBehaviour
     }
 
     // Fungsi yang dipanggil oleh tombol "Select"
-    void ConfirmSelection()
+    public void ConfirmSelection()
     {
         if (currentSelection == GameSessionData.GameMode.None)
         {
