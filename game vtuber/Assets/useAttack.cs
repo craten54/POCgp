@@ -29,5 +29,7 @@ public class useAttack : MonoBehaviour
 
 
         playerStatus.goingAttack = true;
+
+        SkillAttack.currentAction = "1";
     }
 }

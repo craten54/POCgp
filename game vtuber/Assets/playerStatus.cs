@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 using TMPro;
 
 // --- CLASS BARU UNTUK MENYIMPAN STAT DENGAN RAPI ---
@@ -39,7 +40,7 @@ public class playerStatus : MonoBehaviour
     // --- DATA STATISTIK TERPUSAT ---
     [Header("Statistik Player")]
     public CharacterStats playerStats;
-    public int energyPoint = 0;
+    public int energyPoint = 3;
     public int maxenergyPoint = 6;
 
     [Header("Slot Musuh (Maksimal 5)")]
@@ -50,6 +51,9 @@ public class playerStatus : MonoBehaviour
 
     [Header("Buffs")]
     public int pendengarSetiaCount = 0; // Variabel baru untuk buff
+
+    [Header("Referensi UI")]
+    public GameObject actionBar; // Tambahkan ini jika belum ada
 
     // Variabel kontrol alur
     public static bool goingAttack = false;
@@ -80,15 +84,16 @@ public class playerStatus : MonoBehaviour
 
         }
 
-        pendengarSetiaCount = 2;
+        pendengarSetiaCount = 0;
         playerStats.maxHP += 10 * pendengarSetiaCount; // +20 max HP
         playerStats.currentHP = playerStats.maxHP;   // Heal penuh ke HP baru
         playerStats.attack += 3 * pendengarSetiaCount;   // +6 Attack
         Debug.Log("Mode Tes: Memulai dengan " + pendengarSetiaCount + " buff Pendengar Setia.");
+        energyPoint = 3;
 
         // 2. Atur ronde awal secara manual
         // Kita set ke 5 karena executeRound() akan menambahkannya menjadi 6.
-        round = 7;
+        round = 1;
         Debug.Log("Mode Tes: Melompat ke Ronde 6.");
 
         UpdateBuffUI();
@@ -220,8 +225,8 @@ public class playerStatus : MonoBehaviour
         switch (spawnPatternRound)
         {
             case 1:
-                AddEnemyWithScaling("Lurker", 100, 10, 0f, statMultiplier, 0);
-                AddEnemyWithScaling("Lurker", 100, 10, 0f, statMultiplier, 1);
+                AddEnemyWithScaling("Lurker", 10, 10, 0f, statMultiplier, 0);
+                AddEnemyWithScaling("Lurker", 10, 10, 0f, statMultiplier, 1);
                 break;
             case 2:
             case 3:
@@ -231,8 +236,8 @@ public class playerStatus : MonoBehaviour
                 SpawnRandomUnit(statMultiplier);
                 break;
             case 5:
-                AddEnemyWithScaling("Lurker", 100, 10, 0f, statMultiplier, 0);
-                AddEnemyWithScaling("Lurker", 100, 10, 0f, statMultiplier, 1);
+                AddEnemyWithScaling("Lurker", 10, 10, 0f, statMultiplier, 0);
+                AddEnemyWithScaling("Lurker", 10, 10, 0f, statMultiplier, 1);
                 break;
             case 6:
                 SpawnRandomAnomaly(statMultiplier);
@@ -310,13 +315,45 @@ public class playerStatus : MonoBehaviour
         }
     }
 
+    // --- FUNGSI BARU UNTUK KONVERSI LURKER ---
+    // Memunculkan Anomali acak di slot yang ditentukan.
+    public void SpawnAnomalyInSlot(int slotIndex)
+    {
+        // Menentukan kekuatan musuh berdasarkan progres di mode Endurance
+        float statMultiplier = 1.0f + (0.2f * enduranceLoopCount);
+
+        // Logika untuk memilih Anomali secara acak
+        int rand = Random.Range(0, 4); // Ada 4 tipe Anomali
+        switch (rand)
+        {
+            case 0: AddEnemyWithScaling("Spammer", 120, 15, 5f, statMultiplier, slotIndex); break;
+            case 1: AddEnemyWithScaling("Heckler", 150, 20, 10f, statMultiplier, slotIndex); break;
+            case 2: AddEnemyWithScaling("Backseat Gamer", 80, 5, 0f, statMultiplier, slotIndex); break;
+            case 3: AddEnemyWithScaling("Promotor Judol", 180, 0, 20f, statMultiplier, slotIndex); break;
+        }
+        Debug.Log("Lurker di slot " + slotIndex + " berubah menjadi Anomali!");
+
+        // Perbarui tampilan visual musuh setelah perubahan
+        UpdateEnemyVisuals();
+    }
+
     // Memunculkan unit acak (bisa Lurker atau Anomali)
     private void SpawnRandomUnit(float multiplier)
     {
-        if (Random.value < 0.3f) // 30% kemungkinan Lurker
+        float chance = Random.value; // Ambil satu nilai acak untuk semua pengecekan
+
+        // 40% kemungkinan untuk memunculkan Lurker
+        if (chance < 0.4f)
         {
-            AddEnemyWithScaling("Lurker", 100, 10, 0f, multiplier);
+            AddEnemyWithScaling("Lurker", 10, 10, 0f, multiplier);
         }
+        // 30% kemungkinan berikutnya (total 70%) untuk menambah Pendengar Setia
+        else if (chance < 0.7f)
+        {
+            AddPendengarSetiaBuff();
+            Debug.Log("Sebuah 'Unit Acak' memberikan buff Pendengar Setia!");
+        }
+        // Sisa 30% kemungkinan untuk memunculkan Anomali
         else
         {
             SpawnRandomAnomaly(multiplier);
@@ -351,4 +388,67 @@ public class playerStatus : MonoBehaviour
                 : new Color32(63, 55, 55, 255);
         }
     }
+
+    public void EndPlayerTurn()
+    {
+        // Nonaktifkan kontrol pemain selama giliran musuh
+        actionBar.SetActive(false);
+        Debug.Log("--- Giliran Musuh Dimulai ---");
+        // Mulai Coroutine untuk serangan musuh secara berurutan
+        StartCoroutine(EnemyTurnCoroutine());
+    }
+
+    private IEnumerator EnemyTurnCoroutine()
+    {
+        // Beri jeda sejenak agar pemain bisa melihat hasil aksinya
+        yield return new WaitForSeconds(1.0f);
+
+        // Loop melalui setiap slot musuh
+        foreach (var enemy in enemySlots)
+        {
+            // Cek apakah musuh ini valid untuk menyerang (hidup dan bukan Lurker)
+            if (enemy != null && enemy.currentHP > 0 && enemy.characterName != "Lurker")
+            {
+                // Hitung damage dengan formula damage reduction
+                float damageMultiplier = (100f - playerStats.damageReductionPercent) / 100f;
+                int finalDamage = Mathf.RoundToInt(enemy.attack * damageMultiplier);
+
+                // Terapkan damage ke pemain
+                playerStats.currentHP -= finalDamage;
+                Debug.Log(enemy.characterName + " menyerang player sebesar " + finalDamage + " damage!");
+
+                // Cek jika pemain kalah
+                if (playerStats.currentHP <= 0)
+                {
+                    playerStats.currentHP = 0;
+                    Debug.LogError("GAME OVER! Kesehatan Mental VTuber habis.");
+                    Time.timeScale = 0f; // Hentikan permainan
+                    yield break; // Keluar dari coroutine
+                }
+
+                // Beri jeda antar serangan musuh agar tidak terlalu cepat
+                yield return new WaitForSeconds(1.0f);
+            }
+        }
+
+        // Setelah semua musuh selesai menyerang, mulai giliran pemain lagi
+        StartPlayerTurn();
+    }
+
+    public void StartPlayerTurn()
+    {
+        Debug.Log("--- Giliran Player Dimulai ---");
+        // Tambah 2 energy point
+        energyPoint += 2;
+        // Pastikan tidak melebihi maksimum
+        if (energyPoint > maxenergyPoint)
+        {
+            energyPoint = maxenergyPoint;
+        }
+
+        // Aktifkan kembali UI kontrol pemain
+        actionBar.SetActive(true);
+    }
+
+
 }

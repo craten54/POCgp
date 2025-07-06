@@ -5312,6 +5312,7 @@ MonoBehaviour:
   - {fileID: 137282011}
   - {fileID: 378864610}
   pendengarSetiaCount: 0
+  actionBar: {fileID: 1583014985}
   round: 0
   turnIndex: 1
   hpText: {fileID: 1988446320}
