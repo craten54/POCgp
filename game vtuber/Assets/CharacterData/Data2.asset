@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterID: 1
   characterName: Bella
-  characterSprite: {fileID: 0}
+  characterSprite: {fileID: -8935311701350395407, guid: 348ed0b953a9b1741a818e541ca96a1d, type: 3}
   maxHealth: 0
   attackPower: 0
   defense: 0

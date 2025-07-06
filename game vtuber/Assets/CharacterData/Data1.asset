@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterID: 0
   characterName: Anny
-  characterSprite: {fileID: -6459009424739787807, guid: a4869adc8ae261e4d95b459276c0c12c, type: 3}
+  characterSprite: {fileID: 82050602, guid: d0d42bfbc2b2c2a4494a7a48dd2ed976, type: 3}
   maxHealth: 100
   attackPower: 50
   defense: 50

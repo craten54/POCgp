@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterID: 2
   characterName: Carla
-  characterSprite: {fileID: 0}
+  characterSprite: {fileID: -801294776, guid: a5155e4756706794ea1e07a4e2abb16a, type: 3}
   maxHealth: 0
   attackPower: 0
   defense: 0
-  specialAbilityName: []
-  specialAbilityDescription: []
+  specialAbilityName:
+  - 
+  - 
+  specialAbilityDescription:
+  - 
+  - 
