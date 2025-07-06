@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Data3
   m_EditorClassIdentifier: 
   characterID: 2
-  characterName: Carla
+  characterName: Kuma
   characterSprite: {fileID: -801294776, guid: a5155e4756706794ea1e07a4e2abb16a, type: 3}
-  maxHealth: 0
-  attackPower: 0
-  defense: 0
+  maxHealth: 100
+  attackPower: 70
+  defense: 20
   specialAbilityName:
-  - 
-  - 
+  - Coming Soon
+  - Coming Soon
   specialAbilityDescription:
-  - 
-  - 
+  - '-'
+  - '-'

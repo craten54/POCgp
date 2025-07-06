@@ -19,8 +19,8 @@ MonoBehaviour:
   attackPower: 50
   defense: 50
   specialAbilityName:
-  - Cooked
-  - Genki!
+  - Coming Soon
+  - Coming Soon
   specialAbilityDescription:
-  - 20% chance to 2x damage
-  - +30 health for each wave
+  - '-'
+  - '-'

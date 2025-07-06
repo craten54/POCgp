@@ -13,10 +13,14 @@ MonoBehaviour:
   m_Name: Data4
   m_EditorClassIdentifier: 
   characterID: 3
-  characterName: Delta
+  characterName: Unknown
   characterSprite: {fileID: 0}
   maxHealth: 0
   attackPower: 0
   defense: 0
-  specialAbilityName: []
-  specialAbilityDescription: []
+  specialAbilityName:
+  - Coming Soon
+  - Coming Soon
+  specialAbilityDescription:
+  - '-'
+  - '-'
