@@ -7,7 +7,7 @@ public class EnemyScript : MonoBehaviour
     private GameObject hoverLight;
     [SerializeField] private int enemyID;
     private bool isHovering = false;
-    private bool clickOnce = false;
+    public bool clickOnce = false;
     [SerializeField] private GameObject actionBar;
     [SerializeField] private Button cancelText;
 
@@ -42,7 +42,19 @@ public class EnemyScript : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
-                if (!clickOnce)
+                if (!clickOnce && SkillAttack.skillAOE)
+                {
+                    SkillAttack.skillAOE = false;
+                    EnemyMechanic.attackEnemy();
+                    actionBar.SetActive(true);
+                    cancelText.gameObject.SetActive(false);
+                    playerStatus.goingAttack = false;
+                    SkillAttack.removelightAOE();
+                    clickOnce = false;
+                    isHovering = false;
+                    hoverLight?.SetActive(false);
+                }
+                else if (!clickOnce)
                 {
                     clickOnce = true;
                     EnemyMechanic.currentEnemy = enemyID;
@@ -65,7 +77,7 @@ public class EnemyScript : MonoBehaviour
         else
         {
             // Mouse tidak lagi di atas objek
-            if (isHovering && !clickOnce)
+            if (isHovering && !clickOnce && !SkillAttack.skillAOE)
             {
                 isHovering = false;
                 hoverLight?.SetActive(false);

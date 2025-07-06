@@ -27,9 +27,6 @@ public class useAttack : MonoBehaviour
         bgObject.SetActive(false);
         cancelText.gameObject.SetActive(true);
 
-
         playerStatus.goingAttack = true;
-
-        SkillAttack.currentAction = "1";
     }
 }

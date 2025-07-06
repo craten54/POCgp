@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 using TMPro;
 
 public class SkillAttack : MonoBehaviour
@@ -9,15 +10,74 @@ public class SkillAttack : MonoBehaviour
     [SerializeField] private GameObject skillBar;
     [SerializeField] private GameObject bgObject;
     [SerializeField] private Button cancelText;
+
+    public static bool skillAOE = false;
+
+    public static SkillAttack Instance;
+
+    [SerializeField] private List<GameObject> lightAOE;
+
+    void Awake()
+    {
+        Instance = this;
+    }
+
+    public static List<GameObject> GetLightAOE()
+    {
+        return Instance.lightAOE;
+    }
+
+    public static void showAOE()
+    {
+        skillAOE = true;
+        for (int i = 0; i <= 4 && i < Instance.lightAOE.Count; i++)
+        {
+            if (Instance.lightAOE[i] != null)
+            {
+                Instance.lightAOE[i].SetActive(true);
+                Instance.lightAOE[i].GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 34);
+            }
+        }
+    }
+
+    public static void removelightAOE()
+    {
+        for (int i = 0; i <= 4 && i < Instance.lightAOE.Count; i++)
+        {
+            if (Instance.lightAOE[i] != null)
+            {
+                Instance.lightAOE[i].SetActive(false);
+                Instance.lightAOE[i].GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 34);
+            }
+        }
+    }
     
     public void activateSkill()
     {
-        actionBar.SetActive(false);
-        skillBar.SetActive(false);
-        bgObject.SetActive(false);
-        cancelText.gameObject.SetActive(true);
+        if (currentAction == "2")
+        {
+            showAOE();
+        }
 
-        playerStatus.goingAttack = true;
+        if (currentAction == "3")
+        {
+            actionBar.SetActive(true);
+            skillBar.SetActive(false);
+            bgObject.SetActive(false);
+            EnemyMechanic.attackEnemy();
+            var player = playerStatus.Instance;
+            actionBar.SetActive(true);
+            player.updateHP();
+        }
+        else
+        {
+            actionBar.SetActive(false);
+            skillBar.SetActive(false);
+            bgObject.SetActive(false);
+            cancelText.gameObject.SetActive(true);
+
+            playerStatus.goingAttack = true;
+        }
     }
 
     public void cancelSkill()

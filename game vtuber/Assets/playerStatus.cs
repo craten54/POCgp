@@ -54,6 +54,7 @@ public class playerStatus : MonoBehaviour
 
     [Header("Referensi UI")]
     public GameObject actionBar; // Tambahkan ini jika belum ada
+    public GameObject closeActionBox;
 
     // Variabel kontrol alur
     public static bool goingAttack = false;
@@ -77,12 +78,7 @@ public class playerStatus : MonoBehaviour
 
             Debug.LogWarning("GameSessionData tidak ditemukan atau mode belum dipilih. Default ke Stage Mode.");
 
-            // Jika Anda ingin ini berfungsi, pastikan GameObject dengan GameSessionData ada di scene
-
-            // atau buat instance sementara untuk testing.
-
-
-        }
+        }
 
         pendengarSetiaCount = 0;
         playerStats.maxHP += 10 * pendengarSetiaCount; // +20 max HP
@@ -157,7 +153,7 @@ public class playerStatus : MonoBehaviour
             if (pendengarSetiaCount > 0)
             {
                 buffText.gameObject.SetActive(true);
-                buffText.text = "Pendengar Setia: " + pendengarSetiaCount;
+                buffText.text = "Fans: " + pendengarSetiaCount;
             }
             else
             {
@@ -400,6 +396,9 @@ public class playerStatus : MonoBehaviour
 
     private IEnumerator EnemyTurnCoroutine()
     {
+        closeActionBox.SetActive(true);
+        yield return null;
+        int enemyTurn = 0;
         // Beri jeda sejenak agar pemain bisa melihat hasil aksinya
         yield return new WaitForSeconds(1.0f);
 
@@ -409,6 +408,10 @@ public class playerStatus : MonoBehaviour
             // Cek apakah musuh ini valid untuk menyerang (hidup dan bukan Lurker)
             if (enemy != null && enemy.currentHP > 0 && enemy.characterName != "Lurker")
             {
+                SkillAttack.GetLightAOE()[enemyTurn].SetActive(true);
+                Debug.Log("mimimimi : " + enemyTurn);
+                yield return new WaitForSeconds(1.0f);
+                SkillAttack.removelightAOE();
                 // Hitung damage dengan formula damage reduction
                 float damageMultiplier = (100f - playerStats.damageReductionPercent) / 100f;
                 int finalDamage = Mathf.RoundToInt(enemy.attack * damageMultiplier);
@@ -427,10 +430,11 @@ public class playerStatus : MonoBehaviour
                 }
 
                 // Beri jeda antar serangan musuh agar tidak terlalu cepat
-                yield return new WaitForSeconds(1.0f);
             }
+            enemyTurn++;
         }
-
+        closeActionBox.SetActive(false);
+        yield return null;
         // Setelah semua musuh selesai menyerang, mulai giliran pemain lagi
         StartPlayerTurn();
     }

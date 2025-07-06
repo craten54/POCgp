@@ -33,7 +33,7 @@ public class EnemyMechanic : MonoBehaviour
                 player.energyPoint -= energyCost;
                 int damageDealt = player.playerStats.attack;
                 targetEnemy.currentHP -= damageDealt;
-                
+
                 Debug.Log("Player menyerang " + targetEnemy.characterName + " sebesar " + damageDealt + " damage!");
 
                 // Clamp HP to 0
@@ -69,7 +69,7 @@ public class EnemyMechanic : MonoBehaviour
                         // Langsung kosongkan slot musuh
                         player.enemySlots[currentEnemy] = null;
                     }
-                    
+
                     // Panggil pengecekan untuk ronde berikutnya
                     player.CheckForNextRound();
                 }
@@ -81,6 +81,92 @@ public class EnemyMechanic : MonoBehaviour
                 Debug.LogWarning("Energi tidak cukup untuk Basic Attack!");
             }
         }
-        // Anda bisa menambahkan logika 'else if' di sini untuk skill lainnya
+        else if (SkillAttack.currentAction == "2")
+        {
+            int energyCost = 3;
+
+            if (player.energyPoint >= energyCost)
+            {
+                player.energyPoint -= energyCost;
+                int damagePerHit = player.playerStats.attack;
+
+                Debug.Log($"Player menggunakan Skill 2: menyerang semua musuh sebesar {damagePerHit} damage.");
+
+                for (int i = 0; i < player.enemySlots.Length; i++)
+                {
+                    var enemy = player.enemySlots[i];
+
+                    if (enemy != null && enemy.currentHP > 0)
+                    {
+                        enemy.currentHP -= damagePerHit;
+
+                        Debug.Log($"→ Menyerang {enemy.characterName}, sisa HP: {Mathf.Max(enemy.currentHP, 0)}");
+
+                        // Clamp HP
+                        if (enemy.currentHP < 0)
+                            enemy.currentHP = 0;
+
+                        if (enemy.currentHP == 0)
+                        {
+                            Debug.Log($"{enemy.characterName} telah dikalahkan!");
+
+                            if (enemy.characterName == "Lurker")
+                            {
+                                if (Random.value < 0.5f)
+                                {
+                                    player.SpawnAnomalyInSlot(i);
+                                }
+                                else
+                                {
+                                    player.AddPendengarSetiaBuff();
+                                    player.enemySlots[i] = null;
+                                }
+                            }
+                            else
+                            {
+                                player.enemySlots[i] = null;
+                            }
+                        }
+                    }
+                }
+
+                // Setelah semua serangan selesai
+                player.CheckForNextRound();
+                player.EndPlayerTurn();
+            }
+            else
+            {
+                Debug.LogWarning("Energi tidak cukup untuk Skill 2!");
+            }
+        }
+        else if (SkillAttack.currentAction == "3")
+        {
+            int energyCost = 3;
+
+            if (player.energyPoint >= energyCost)
+            {
+                player.energyPoint -= energyCost;
+
+                int healAmount = (int)(player.playerStats.maxHP * 0.25f);
+                player.playerStats.currentHP += healAmount;
+
+                // Clamp HP agar tidak melebihi max
+                if (player.playerStats.currentHP > player.playerStats.maxHP)
+                {
+                    player.playerStats.currentHP = player.playerStats.maxHP;
+                }
+
+                Debug.Log($"Player menggunakan Skill 3: menyembuhkan diri sendiri sebesar {healAmount} HP. HP sekarang: {player.playerStats.currentHP}");
+
+                // Selesai, lanjut ke ronde berikutnya
+                player.CheckForNextRound();
+                player.EndPlayerTurn();
+            }
+            else
+            {
+                Debug.LogWarning("Energi tidak cukup untuk Skill 3!");
+            }
+        }
+ // Anda bisa menambahkan logika 'else if' di sini untuk skill lainnya
     }
 }
