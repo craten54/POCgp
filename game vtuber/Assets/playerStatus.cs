@@ -68,6 +68,7 @@ public class playerStatus : MonoBehaviour
     public List<GameObject> pointImages;
     public TextMeshProUGUI roundText; // Variabel baru untuk teks ronde
     public TextMeshProUGUI buffText; // Referensi UI baru untuk buff
+    public TextMeshProUGUI[] enemyInfoTexts = new TextMeshProUGUI[5];
 
     void Start()
     {
@@ -94,6 +95,7 @@ public class playerStatus : MonoBehaviour
         Debug.Log("Mode Tes: Melompat ke Ronde 6.");
 
         UpdateBuffUI();
+        UpdateEnemyInfoUI();
 
         // --- LOGIKA BARU UNTUK TESTING ---
         // Cek apakah Anda mengatur ronde awal di Inspector untuk testing.
@@ -128,6 +130,7 @@ public class playerStatus : MonoBehaviour
         {
             SceneManager.LoadScene("MainMenu");
         }
+        UpdateEnemyInfoUI();
     }
 
     public void AddPendengarSetiaBuff()
@@ -442,6 +445,28 @@ public class playerStatus : MonoBehaviour
         yield return null;
         // Setelah semua musuh selesai menyerang, mulai giliran pemain lagi
         StartPlayerTurn();
+    }
+
+    // Tambahkan FUNGSI BARU ini di mana saja di dalam kelas playerStatus:
+    public void UpdateEnemyInfoUI()
+    {
+        for (int i = 0; i < enemySlots.Length; i++)
+        {
+            // Cek apakah ada musuh di slot ini dan teks UI-nya sudah di-assign
+            if (enemyInfoTexts[i] != null && enemySlots[i] != null && enemySlots[i].currentHP > 0)
+            {
+                var enemy = enemySlots[i];
+                // Format teks yang akan ditampilkan
+                string info = $"{enemy.characterName} : {enemy.currentHP}/{enemy.maxHP}";
+                enemyInfoTexts[i].text = info;
+                enemyInfoTexts[i].gameObject.SetActive(true); // Tampilkan teks
+            }
+            else if (enemyInfoTexts[i] != null)
+            {
+                // Jika tidak ada musuh di slot ini, sembunyikan teksnya
+                enemyInfoTexts[i].gameObject.SetActive(false);
+            }
+        }
     }
 
     public void StartPlayerTurn()
