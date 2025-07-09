@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 // --- CLASS BARU UNTUK MENYIMPAN STAT DENGAN RAPI ---
@@ -122,6 +123,10 @@ public class playerStatus : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
         {
             AddPendengarSetiaBuff();
+        }
+        if (playerStats.currentHP <= 0)
+        {
+            SceneManager.LoadScene("MainMenu");
         }
     }
 

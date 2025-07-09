@@ -1338,7 +1338,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1813463404}
         m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
-        m_MethodName: ShowCharacterSelection
+        m_MethodName: ShowStageSelection
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4238,7 +4238,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1813463404}
         m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
-        m_MethodName: ShowCharacterSelection
+        m_MethodName: ShowMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
